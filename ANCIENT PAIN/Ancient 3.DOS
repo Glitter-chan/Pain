@@ -1,0 +1,21 @@
+; E
+
+ORG 100h
+
+start:
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Let's play a destruction I hecker
+    mov ah, 2
+    mov dl, 0
+    int 21h
+
+    ; Infinite loop to prevent the user from escaping (troll)
+    jmp $
+
+message db "Congratulations! Your hard drive is being wiped clean. Enjoy the devastation!", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
