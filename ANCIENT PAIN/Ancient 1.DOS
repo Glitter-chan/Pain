@@ -1,0 +1,23 @@
+; Pain
+
+ORG 100h
+
+start:
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    jmp crash
+
+message db "Congratulations! You've just activated a destructive program. Enjoy the chaos!", 0
+
+crash:
+    mov ah, 0
+    mov al, 4
+    int 21h
+
+    ; E
+    jmp crash
+
+times 510-($-$$) db 0
+dw 0AA55h
