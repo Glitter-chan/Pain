@@ -1,0 +1,19 @@
+; Another Pain MS-DOS File
+
+ORG 100h
+
+start:
+    mov ax, 0A000h
+    mov es, ax
+    xor di, di
+    mov cx, 320 * 200 / 2
+
+    ; Let's create a visual nightmare on the screen
+    mov al, 13h
+    rep stosb
+
+    ; Infinite loop to prevent the user from escaping
+    jmp $
+
+times 510-($-$$) db 0
+dw 0AA55h
