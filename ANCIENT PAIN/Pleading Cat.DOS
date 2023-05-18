@@ -1,0 +1,11 @@
+@echo off
+mode con: cols=80 lines=25
+color 0C
+
+:loop
+echo I love the pleading cat
+goto next
+
+:next
+echo I love the pleading cat
+goto loop
